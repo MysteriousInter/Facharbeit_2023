@@ -1,0 +1,30 @@
+{
+  "anzahlRunden": 5,
+  "felderGroß": 4,
+  "felderGesammt": 5,
+  "datum": "12.2.24",
+  "gastgeber": "lessenich",
+  "beginnzeit": "12:00",
+  "vereine": [
+    {
+      "vereinsname": "RWL",
+      "anzahlTeams": 2
+    },
+    {
+      "vereinsname": "Plittersdorf",
+      "anzahlTeams": 2
+    },
+    {
+      "vereinsname": "Godesbersg",
+      "anzahlTeams": 2
+    },
+    {
+      "vereinsname": "RW Merl",
+      "anzahlTeams": 2
+    },
+    {
+      "vereinsname": "Dünstekoven",
+      "anzahlTeams": 2
+    }
+  ]
+}
