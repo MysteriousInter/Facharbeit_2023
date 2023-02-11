@@ -16,7 +16,7 @@
     },
     {
       "vereinsname": "Godesbersg",
-      "anzahlTeams": 2
+      "anzahlTeams": 3
     },
     {
       "vereinsname": "RW Merl",

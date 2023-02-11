@@ -2,6 +2,8 @@ package de.korittky.spielplangenerator;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.UnitValue;
@@ -17,53 +19,40 @@ public class PdfOut {
         file.getParentFile().mkdirs();
     }
 
-  /*  protected void manipulatePdf(String dest,String[][] plan) throws Exception {
 
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
-        Document doc = new Document(pdfDoc);
-
-        Table table = new Table(UnitValue.createPercentArray(plan[1].length)).useAllAvailableWidth();
-
-        for (int i = 0; i < plan[1].length; i++) {
-            for (int j = 0; j < plan.length; j++) {
-                table.addCell(plan[i][j]);
-            }
-        }
-
-
-        doc.add(table);
-
-        doc.close();
-    }
-
-   */
     public void printPlanPdf(Plan plan,Spielfest spielfest)throws Exception{
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
         Document doc = new Document(pdfDoc);
-        int i=1;
-        Table table1 = new Table(UnitValue
-                .createPercentArray(new float[]{1,3,1}))
-                .setFontSize(7)
-                .setAutoLayout();//.useAllAvailableWidth();
+        int spielnummer = 1;
+        Table layoutTable = new Table(UnitValue.createPercentArray(2))
+                .setVerticalBorderSpacing(100).useAllAvailableWidth();
+
         for(Runde runde : plan.getRunden()){
-            table1.addCell("Runde"+(runde.getRundennummer()+1));
-            table1.startNewRow();
+            Table rundenTable = new Table(UnitValue
+                    .createPercentArray(new float[]{1,3,1}))
+                    .setFontSize(9)
+                    .setAutoLayout();
+            rundenTable.addCell("Runde"+(runde.getRundennummer()+1));
+            rundenTable.startNewRow();
             int platz=1;
             for(Spiel spiel : runde.getSpiele()){
-                table1.addCell(""+i++);
-                table1.addCell(spiel.getTeam1() + " : " + spiel.getTeam2());
-                table1.addCell("platz"+platz++);
+                rundenTable.addCell(""+spielnummer ++);
+                rundenTable.addCell(spiel.toString());
+                rundenTable.addCell("platz"+platz++);
                //table.addCell(""+spiel.getPlatz());
             }
-            table1.startNewRow();
+            Cell cell=new Cell()
+                    .add(rundenTable).setPaddingBottom(10)
+                    .setBorder(Border.NO_BORDER);
+            layoutTable.addCell(cell);
+
 
 
         }
-        doc.add(new Paragraph(spielfest.getGastgeber()+" "+spielfest.getDatum()));
-        doc.add(table1);
+        doc.add(new Paragraph(spielfest.getGastgeber()+" "+spielfest.getDatum()+" Beginnt um:"+spielfest.getBeginnzeit()).setFontSize(20));
+        doc.add(layoutTable);
 
         doc.close();
     }
-
 
 }

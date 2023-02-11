@@ -38,12 +38,13 @@ public class Spiel {
         return this.getTeam1()==Team.EMPTYTEAM&&this.getTeam2()==Team.EMPTYTEAM;
     }
 
-   /* public int getPlatz() {
-        return platz;
+    @Override
+    public String toString(){
+        if(getTeam1()==Team.EMPTYTEAM) {
+            return getTeam2().toString()+" setzt aus";
+        }
+        if(getTeam2()==Team.EMPTYTEAM) return getTeam1().toString()+" setzt aus";
+        return getTeam1()+":"+getTeam2();
     }
-
-    public void setPlatz(int platz) {
-        this.platz = platz;
-    }*/
 
 }

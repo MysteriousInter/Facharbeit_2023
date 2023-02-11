@@ -6,7 +6,7 @@ public class Team {
     int teamNummerVerein;
 
     Verein verein;
-    public static Team EMPTYTEAM=new Team();
+    public static Team EMPTYTEAM=new Team(Verein.EMPTYVEREIN,1000);
     public Team(){
 
     }

@@ -7,7 +7,7 @@ public class Verein {
     private Team[] teams;
     public Verein(){
     }
-
+    public static Verein EMPTYVEREIN=new Verein("",1);
     public Verein(String vereinsname, int anzahlTeams){
         this.anzahlTeams =anzahlTeams;
         this.vereinsname = vereinsname;

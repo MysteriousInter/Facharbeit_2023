@@ -84,6 +84,7 @@ public class Spielfest {
                 team.setTeamNummerGlobal(teamNummer++);
             }
         }
+
         final int anzahlTeams=teamNummer;
         boolean gerade=(0==anzahlTeams%2)?true:false;
         if(gerade){
@@ -97,7 +98,10 @@ public class Spielfest {
             for(Team team : verein.getTeams()){
                 alleTeams[teamNummer++]=team;
             }
-            if(!gerade)alleTeams[teamNummer]=Team.EMPTYTEAM;
+            if(!gerade){
+                alleTeams[teamNummer]=Team.EMPTYTEAM;
+                Team.EMPTYTEAM.setTeamNummerGlobal(teamNummer);
+            }
         }
 
     }

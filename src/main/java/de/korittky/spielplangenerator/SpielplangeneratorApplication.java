@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.PriorityQueue;
 
 @SpringBootApplication
 public class SpielplangeneratorApplication {
@@ -20,6 +21,18 @@ public class SpielplangeneratorApplication {
 		if (args.length>0) {
 			eingabedatei=args[0];
 		}
+		System.out.println(Integer.compare(1,1000));
+		System.out.println(Integer.compare(1,1));
+		System.out.println(Integer.compare(1000,1));
+		System.out.println(Integer.compare(1,2));
+		PriorityQueue<String> ps = new PriorityQueue<>();
+		ps.add("j");
+		ps.add("o");
+		ps.add("a");
+		ps.add("c");
+		ps.add("h");
+		System.out.println(ps.remove());
+
 
 		Gson gson2 = new Gson();
 		JsonReader reader = new JsonReader(new FileReader(eingabedatei));
