@@ -1,0 +1,35 @@
+Runde 1
+1: RWL 1:Plittersdorf 1
+2: RWL 2:Plittersdorf 2
+3: Godesbersg 1:RW Merl 1
+4: Godesbersg 2:RW Merl 2
+5: Godesbersg 3:Dünstekoven 2
+6: Dünstekoven 1 setzt aus
+Runde 2
+7: RWL 1:Godesbersg 1
+8: RWL 2:Godesbersg 2
+9: Plittersdorf 1:RW Merl 1
+10: Plittersdorf 2:RW Merl 2
+11: Godesbersg 3:Dünstekoven 1
+12: Dünstekoven 2 setzt aus
+Runde 3
+13: RWL 1:RW Merl 1
+14: RWL 2:RW Merl 2
+15: Plittersdorf 1:Godesbersg 1
+16: Plittersdorf 2:Dünstekoven 2
+17: Godesbersg 2:Dünstekoven 1
+18: Godesbersg 3 setzt aus
+Runde 4
+19: RWL 1:Dünstekoven 1
+20: RWL 2:Dünstekoven 2
+21: Plittersdorf 2:Godesbersg 2
+22: Plittersdorf 1:RW Merl 2
+23: Godesbersg 3:RW Merl 1
+24: Godesbersg 1 setzt aus
+Runde 5
+25: Plittersdorf 1:Dünstekoven 1
+26: Godesbersg 2:Dünstekoven 2
+27: RWL 1:Plittersdorf 2
+28: RWL 2:Godesbersg 1
+29: Godesbersg 3:RW Merl 2
+30: RW Merl 1 setzt aus
