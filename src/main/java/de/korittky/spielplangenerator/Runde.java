@@ -20,7 +20,11 @@ public class Runde {
     public int getRundennummer() {
         return rundennummer;
     }
-
+    public void swapSpiele(int t1, int t2){
+        Spiel temp= spiele[t1];
+        spiele[t1]=spiele[t2];
+        spiele[t2]=temp;
+    }
 
     public Spiel[]getSpiele(){
         return spiele;

@@ -3,7 +3,6 @@ package de.korittky.spielplangenerator;
 public class Spielfest {
     private int anzahlRunden;
     private int felderGroß;
-    private int felderGesammt;
     private String datum;
     private String gastgeber;
     private String beginnzeit;
@@ -12,10 +11,9 @@ public class Spielfest {
     private Verein[] vereine;
     private Team[] alleTeams;
 
-    public Spielfest(int anzahlRunden, int felderGroß, int felderGesammt, String datum, String gastgeber, String beginnzeit, Verein[] vereine ){
+    public Spielfest(int anzahlRunden, int felderGroß, String datum, String gastgeber, String beginnzeit, Verein[] vereine ){
         this.anzahlRunden=anzahlRunden;
         this.felderGroß= felderGroß;
-        this.felderGesammt=felderGesammt;
         this.datum=datum;
         this.gastgeber=gastgeber;
         this.beginnzeit=beginnzeit;
@@ -62,13 +60,6 @@ public class Spielfest {
         this.beginnzeit = beginnzeit;
     }
 
-    public int getFelderGesammt() {
-        return felderGesammt;
-    }
-
-    public void setFelderGesammt(int felderGesammt) {
-        this.felderGesammt = felderGesammt;
-    }
 
     public Verein[] getVereine() {
         return vereine;

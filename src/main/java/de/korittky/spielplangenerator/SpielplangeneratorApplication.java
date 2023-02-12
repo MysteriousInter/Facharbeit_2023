@@ -28,7 +28,9 @@ public class SpielplangeneratorApplication {
 		spielfest.init();
 		Plan plan=new Plan(spielfest.getAlleTeams().length,spielfest.getAnzahlRunden());
 		FillPlan fillPlan=new FillPlan(spielfest);
-		fillPlan.fillRek(plan, spielfest.getAlleTeams());
+		PlatzVerteilen platzVerteilen=new PlatzVerteilen(spielfest,fillPlan.fillRek(plan, spielfest.getAlleTeams()));
+		platzVerteilen.platzVerteilen();
+		//fillPlan.fillRek(plan, spielfest.getAlleTeams());
 		PdfOut pdfOut =new PdfOut("F://IdeaProjects//Facharbeit//spielplangenerator/test3.pdf");
 		try {
 			pdfOut.printPlanPdf(plan,spielfest);

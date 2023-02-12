@@ -5,6 +5,9 @@ public class Spiel {
     private Team[] teams=new Team[2];
 
 
+
+    private boolean isOnSmall;
+
     public Spiel(Team t1, Team t2){
         this.teams[0] = t1;
         this.teams[1] = t2;
@@ -33,6 +36,12 @@ public class Spiel {
     }
     public void setTeams(Team[] teams) {
         this.teams = teams;
+    }
+    public boolean isOnSmall() {
+        return isOnSmall;
+    }
+    public void setOnSmall(boolean onSmall) {
+        isOnSmall = onSmall;
     }
     public boolean isEmpty(){
         return this.getTeam1()==Team.EMPTYTEAM&&this.getTeam2()==Team.EMPTYTEAM;

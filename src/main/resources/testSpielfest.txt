@@ -1,7 +1,6 @@
 {
   "anzahlRunden": 8,
   "felderGroß": 4,
-  "felderGesammt": 5,
   "datum": "12.2.24",
   "gastgeber": "lessenich",
   "beginnzeit": "12:00",
