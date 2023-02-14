@@ -1,50 +1,106 @@
 package de.korittky.spielplangenerator;
 
 import com.google.gson.stream.JsonReader;
-import org.springframework.boot.SpringApplication;
+import org.apache.commons.cli.*;
+import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.PriorityQueue;
+import java.io.*;
 
 @SpringBootApplication
 public class SpielplangeneratorApplication {
 
-	public static void main(String[] args) throws FileNotFoundException {
-		SpringApplication.run(SpielplangeneratorApplication.class, args);
-		//Verein test= new Verein("tollerverein",2);
-		String eingabedatei= "F:/IdeaProjects/Facharbeit/spielplangenerator/src/main/resources/testSpielfest3.txt";
+	public static void main(String[] args) {
+		CommandLineParser parser = new DefaultParser();
+		Options options = buildOptions();
+		String eingabedatei = "spielfestTemplate.json";
 
-		if (args.length>0) {
-			eingabedatei=args[0];
+		new SpringApplicationBuilder(SpielplangeneratorApplication.class)
+				.bannerMode(Banner.Mode.OFF)
+				.run(args);
+
+		try {
+			// parse the command line arguments
+			CommandLine line = parser.parse(options, args);
+
+			if (line.hasOption("help")) {
+				HelpFormatter formatter = new HelpFormatter();
+				formatter.printHelp("spielplangenerator", options);
+				System.exit(0);
+			}
+
+			if (line.hasOption("input")) {
+				// initialise the member variable
+				eingabedatei = line.getOptionValue("input").replaceAll("\"", "");
+				//	eingabedatei = eingabedatei.replaceAll("\"","");
+			}
+
+			Gson gson2 = new Gson();
+			JsonReader reader = null;
+			try {
+				reader = new JsonReader(new FileReader(eingabedatei));
+			} catch (FileNotFoundException e) {
+				System.out.println("Die Eingabedatei "+eingabedatei+ " wurde nicht gefunden. Eine Beispieldatei mit diesem Namen wurde erstellt.");
+				printTemplate(eingabedatei);
+				System.exit(0);
+			}
+			Spielfest spielfest = gson2.fromJson(reader, Spielfest.class);
+			spielfest.init();
+
+			Plan plan = new Plan(spielfest.getAlleTeams().length, spielfest.getAnzahlRunden());
+			FillPlan fillPlan = new FillPlan(spielfest);
+
+			PlatzVerteilen platzVerteilen = new PlatzVerteilen(spielfest, fillPlan.fillRek(plan, spielfest.getAlleTeams()));
+			platzVerteilen.platzVerteilen();
+
+
+			File inputfile = new File(eingabedatei);
+			PdfOut pdfOut = new PdfOut(inputfile.getAbsolutePath().replace(inputfile.getName(), "Spielplan.pdf"));
+			try {
+				pdfOut.printPlanPdf(plan, spielfest);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+
+			if (line.hasOption("csv")) {
+				CvsOut test = new CvsOut(inputfile.getAbsolutePath().replace(inputfile.getName(), "Spielplan.csv"));
+				try {
+					test.printPlanCvs(plan, spielfest);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		} catch (ParseException exp) {
+			// oops, something went wrong
+			System.err.println("Parsing failed.  Reason: " + exp.getMessage());
 		}
 
-		Gson gson2 = new Gson();
-		JsonReader reader = new JsonReader(new FileReader(eingabedatei));
-		Spielfest spielfest = gson2.fromJson(reader, Spielfest.class);
-		spielfest.init();
-		Plan plan=new Plan(spielfest.getAlleTeams().length,spielfest.getAnzahlRunden());
-		FillPlan fillPlan=new FillPlan(spielfest);
-		PlatzVerteilen platzVerteilen=new PlatzVerteilen(spielfest,fillPlan.fillRek(plan, spielfest.getAlleTeams()));
-		platzVerteilen.platzVerteilen();
-		//fillPlan.fillRek(plan, spielfest.getAlleTeams());
-		PdfOut pdfOut =new PdfOut("F://IdeaProjects//Facharbeit//spielplangenerator/test3.pdf");
-		try {
-			pdfOut.printPlanPdf(plan,spielfest);
-		} catch (Exception e) {
+
+	}
+
+	private static Options buildOptions() {
+		Options options = new Options();
+		options.addOption("h", "help", false, "This help");
+		options.addOption("i", "input", true, "Dateiname mit Pfad zur Spielfestdefinition im json Format");
+		options.addOption("p", "csv", false, "Wenn eine csv erzeugt werden soll");
+		return options;
+	}
+
+	private static void printTemplate(String eingabedateiTemplate) {
+		Verein[] vereine = {new Verein("Beispielverein1", 2), new Verein("Beispielverein2", 3), new Verein("Beispielverein3", 4)};
+		Spielfest test = new Spielfest(3, 4, "12.2.24", "lessenich", "12:00", vereine);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try (FileWriter fileWriter = new FileWriter(eingabedateiTemplate)){
+
+			gson.toJson(test, fileWriter);
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		TxtOut test = new TxtOut();
-		try {
-			test.printPlanTxt(plan,spielfest);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-
 	}
 
 }

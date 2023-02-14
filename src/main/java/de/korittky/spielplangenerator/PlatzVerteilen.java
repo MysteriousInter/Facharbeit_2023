@@ -1,14 +1,23 @@
 package de.korittky.spielplangenerator;
 
+/**
+ * Sortiert einen fertigen Plan so, dass die Teams möglichst
+ * gleichmässig oft auf kleinen und grossen plaetzen spielen.
+ * die letzten n Spiele jeder Runde sind immer die n Kleinplaetze
+ */
 public class PlatzVerteilen {
     Spielfest spielfest;
     Plan plan;
     int kleinFelder;
-
+    int aussetzen=0;
     public PlatzVerteilen(Spielfest spielfest, Plan plan){
         this.spielfest=spielfest;
         this.plan=plan;
-        this.kleinFelder=(spielfest.getAlleTeams().length/2)-spielfest.getFelderGroß();
+        this.kleinFelder=spielfest.getFelderKlein();
+        //wenn ungerade Anzahl teams(EMPTYTEAM nicht eingeschlossen), dann wird aussetzten auf 1 gesetzt um später das Aussetztspiel nicht von der letzten Stelle wegzutauschen.
+        if(spielfest.getAlleTeams()[spielfest.getAlleTeams().length-1]==Team.EMPTYTEAM){
+            this.aussetzen=1;
+        }
     }
     public Plan platzVerteilen(){
         int posLow=0;
@@ -30,7 +39,7 @@ public class PlatzVerteilen {
                 }
                 anzahlKleinGespielt[runde.getSpiel(posLow).getTeam1().teamNummerGlobal]++;
                 anzahlKleinGespielt[runde.getSpiel(posLow).getTeam2().teamNummerGlobal]++;
-                runde.swapSpiele(posLow,runde.getAnzahlSpiele()-i);
+                runde.swapSpiele(posLow,runde.getAnzahlSpiele()-i-aussetzen);
             }
         }
         return plan;
