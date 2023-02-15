@@ -1,4 +1,7 @@
 package de.korittky.spielplangenerator;
+/**
+ * Gibt den übergebenen Plan als Cvs aus
+ */
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,12 +13,9 @@ public class CvsOut {
     public CvsOut(String dest){
         this.dest = dest;
     }
-    public void write() throws IOException {
 
-
-
-    }
     public void printPlanCvs(Plan plan, Spielfest spielfest)throws Exception{
+        // Das ISO-Format ist wichtig fuer das Lesen deutscher Umlaute in Excel.
         PrintWriter writer = new PrintWriter(new FileWriter(dest, Charset.forName("ISO-8859-15")));
 
         int spielnummer = 1;

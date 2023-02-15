@@ -33,9 +33,7 @@ public class SpielplangeneratorApplication {
 			}
 
 			if (line.hasOption("input")) {
-				// initialise the member variable
 				eingabedatei = line.getOptionValue("input").replaceAll("\"", "");
-				//	eingabedatei = eingabedatei.replaceAll("\"","");
 			}
 
 			Gson gson2 = new Gson();
@@ -53,7 +51,7 @@ public class SpielplangeneratorApplication {
 			Plan plan = new Plan(spielfest.getAlleTeams().length, spielfest.getAnzahlRunden());
 			FillPlan fillPlan = new FillPlan(spielfest);
 
-			PlatzVerteilen platzVerteilen = new PlatzVerteilen(spielfest, fillPlan.fillRek(plan, spielfest.getAlleTeams()));
+			PlatzVerteilen platzVerteilen = new PlatzVerteilen(spielfest, fillPlan.fill(plan, spielfest.getAlleTeams()));
 			platzVerteilen.platzVerteilen();
 
 

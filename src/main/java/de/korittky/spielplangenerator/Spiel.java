@@ -1,12 +1,12 @@
 package de.korittky.spielplangenerator;
 
+/**
+ * Die Klasse Spiel repraesentiert ein Spiel zweier Teams.
+ * Die Klasse enthält ein Array, welches die beiden Teams enthält.
+ */
 public class Spiel {
 
     private Team[] teams=new Team[2];
-
-
-
-    private boolean isOnSmall;
 
     public Spiel(Team t1, Team t2){
         this.teams[0] = t1;
@@ -17,36 +17,20 @@ public class Spiel {
         this.teams[0] = Team.EMPTYTEAM;
         this.teams[1] = Team.EMPTYTEAM;
     }
-    public void setTeam1(Team t1){
-        this.teams[0]=t1;
-    }
-    public void setTeam2(Team t2){
-        this.teams[1]=t2;
-    }
+
     public Team getTeam1() {
         return teams[0];
     }
-
     public Team getTeam2() {
         return teams[1];
     }
-
     public Team[] getTeams(){
         return teams;
     }
-    public void setTeams(Team[] teams) {
-        this.teams = teams;
-    }
-    public boolean isOnSmall() {
-        return isOnSmall;
-    }
-    public void setOnSmall(boolean onSmall) {
-        isOnSmall = onSmall;
-    }
-    public boolean isEmpty(){
-        return this.getTeam1()==Team.EMPTYTEAM&&this.getTeam2()==Team.EMPTYTEAM;
-    }
 
+    /**
+     * Bei einem Machup gegen EMPTYTEAM stattdessen "TEAM setzt aus" ins PDF zu drucken.
+     */
     @Override
     public String toString(){
         if(getTeam1()==Team.EMPTYTEAM) {

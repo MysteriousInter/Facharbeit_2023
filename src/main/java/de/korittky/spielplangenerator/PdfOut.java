@@ -1,4 +1,8 @@
 package de.korittky.spielplangenerator;
+/**
+ * Gibt den übergebenen Plan als PDF aus
+ */
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -11,15 +15,20 @@ import com.itextpdf.layout.properties.UnitValue;
 import java.io.File;
 
 public class PdfOut {
-    //public static final String dest= "F://IdeaProjects//Facharbeit//spielplangenerator/test.pdf";
     private String dest;
     public PdfOut(String dest){
         File file = new File(dest);
         this.dest=dest;
         file.getParentFile().mkdirs();
-    }
+   }
 
 
+    /**
+     * Erzeugt das PDF und schachtelt Rundentabellen innerhalb einer Layouttabelle mit zwei Spalten.
+     * @param plan
+     * @param spielfest
+     * @throws Exception
+     */
     public void printPlanPdf(Plan plan,Spielfest spielfest)throws Exception{
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
         Document doc = new Document(pdfDoc);
@@ -45,11 +54,9 @@ public class PdfOut {
                     .add(rundenTable).setPaddingBottom(10)
                     .setBorder(Border.NO_BORDER);
             layoutTable.addCell(cell);
-
-
-
         }
-        doc.add(new Paragraph(spielfest.getGastgeber()+" "+spielfest.getDatum()+" Beginnt um:"+spielfest.getBeginnzeit()).setFontSize(20));
+        doc.add(new Paragraph(spielfest.getGastgeber()+" "+spielfest.getDatum()
+                +" Beginnt um:"+spielfest.getBeginnzeit()).setFontSize(20));
         doc.add(layoutTable);
 
         doc.close();
