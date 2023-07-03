@@ -27,7 +27,7 @@ public class Runde {
     }
 
     /**
-     * Tauscht die Positionen zweier Teams in der Runde.
+     * Tauscht die Positionen zweier Spiele in der Runde.
      * Dies hat evtl. eine implizite Auswirkungen auf den Platz (und die Platzart) auf dem die Spiele stattfinden.
      * @param t1 Ein Team
      * @param t2 Anderes Team

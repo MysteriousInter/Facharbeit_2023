@@ -55,7 +55,11 @@ public class Spielfest {
      * Weist die globalen Teamnummern zu und fügt evtl. das {@link Team#EMPTYTEAM} hinzu.
      * Am Ende ist die Anzahl der Teams immer gerade.
      */
+
     public void init() {
+
+
+
         int teamNummer=0;
         for (Verein verein : getVereine()) {
             verein.init();
@@ -81,6 +85,10 @@ public class Spielfest {
                 alleTeams[teamNummer]=Team.EMPTYTEAM;
                 Team.EMPTYTEAM.setTeamNummerGlobal(teamNummer);
             }
+        }
+        SplitVereine splitVereine=new SplitVereine(vereine);
+        while (!(alleTeams.length-splitVereine.getMostVereine()-1>=anzahlRunden)){
+            vereine=splitVereine.splitVereine();
         }
 
     }

@@ -49,8 +49,8 @@ public class SpielplangeneratorApplication {
 			spielfest.init();
 
 			Plan plan = new Plan(spielfest.getAlleTeams().length, spielfest.getAnzahlRunden());
-			FillPlan fillPlan = new FillPlan(spielfest);
 
+			FillPlan fillPlan = new FillPlan(spielfest);
 			PlatzVerteilen platzVerteilen = new PlatzVerteilen(spielfest, fillPlan.fill(plan, spielfest.getAlleTeams()));
 			platzVerteilen.platzVerteilen();
 
