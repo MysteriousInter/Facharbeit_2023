@@ -2,6 +2,7 @@ package de.korittky.spielplangenerator;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 /**
  * Die FillPlan-Klasse befüllt den leeren Plan mit Runden, welche mit Spielen und diese wiederum mit Teams gefüllt werden.
@@ -92,7 +93,16 @@ public class FillPlan {
 
     public Plan fill(Plan plan, Team[] teams){
        for(Runde runde : plan.getRunden()){
-           fillRundeRek(runde, new TeamStillHasToBeMatchedUp(alleTeams.length),0);
+           Random random = new Random();
+           while (!fillRundeRek(runde, new TeamStillHasToBeMatchedUp(alleTeams.length),0)){
+                for(Team team:teams){
+                    for (Team team_:teams){
+                        if(team != team_ && random.nextBoolean()){
+                            removeMatchup(team_,team);
+                        }
+                    }
+                }
+           }
        }
         return plan;
     }
@@ -125,7 +135,6 @@ public class FillPlan {
      */
     public boolean fillRundeRek(Runde runde, TeamStillHasToBeMatchedUp teamStillHasToBeMatchedUp, int spielnummer) {
        if (spielnummer == runde.getAnzahlSpiele()){
-           System.out.print(teamStillHasToBeMatchedUp.giveNextFrei());
            return true;
        }
        PriorityQueue<Spiel> pq = priorityQueueMitNochNichtGespieltenSpielen(teamStillHasToBeMatchedUp);
